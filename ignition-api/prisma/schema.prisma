@@ -1,96 +1,16 @@
-// Prisma schema for StellarAid API
-// Docs: https://pris.ly/d/prisma-schema
-
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-// ---------------------------------------------------------------------------
-// ENUMS: Define domain-specific enumerations
-// ---------------------------------------------------------------------------
-
-enum UserRole {
-  USER
-  DONOR
-  CREATOR
-  MERCHANT
-  ADMIN
+generator client {
+  provider = "prisma-client-js"
 }
 
-enum KycStatus {
-  UNVERIFIED
-  PENDING
-  VERIFIED
-  REJECTED
-}
-
-enum CampaignStatus {
-  DRAFT
-  PENDING_APPROVAL
-  ACTIVE
-  COMPLETED
-  CANCELLED
-  REJECTED
-}
-
-enum DonationStatus {
-  PENDING
-  CONFIRMED
-  REFUNDED
-  FAILED
-}
-
-enum MilestoneStatus {
-  PENDING
-  ACTIVE
-  COMPLETED
-  FAILED
-}
-
-enum NotificationType {
-  CAMPAIGN_CREATED
-  CAMPAIGN_UPDATED
-  DONATION_RECEIVED
-  MILESTONE_REACHED
-  CAMPAIGN_COMPLETED
-  DISPUTE_FILED
-  DISPUTE_RESOLVED
-}
-
-enum DisputeStatus {
-  OPENED
-  UNDER_REVIEW
-  RESOLVED
-  REJECTED
-}
-
-enum AuditActionType {
-  USER_CREATED
-  CAMPAIGN_CREATED
-  CAMPAIGN_UPDATED
-  DONATION_MADE
-  MILESTONE_COMPLETED
-  DISPUTE_FILED
-  ADMIN_ACTION
-}
-
-enum WalletNetwork {
-  STELLAR
-  ETHEREUM
-  BITCOIN
-}
-
-enum KYCStatus {
-  PENDING
-  VERIFIED
-  REJECTED
-}
-
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @db.VarChar(50)
+  createdAt DateTime @default(now())
 enum TransactionStatus {
   PENDING
   PROCESSING
