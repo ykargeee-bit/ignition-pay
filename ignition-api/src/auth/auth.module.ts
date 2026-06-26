@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CacheModule } from '@nestjs/cache-manager';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AuthChallengeController } from './auth-challenge.controller';
 import { AuthVerifyController } from './auth-verify.controller';
+import { AuthLogoutController } from './auth-logout.controller';
+import { AuthRefreshController } from './auth-refresh.controller';
+import { AuthTokenService } from './auth-token.service';
 
 @Module({
   imports: [
@@ -16,8 +20,15 @@ import { AuthVerifyController } from './auth-verify.controller';
       }),
     }),
     PrismaModule,
+    CacheModule,
   ],
-  controllers: [AuthChallengeController, AuthVerifyController],
-  exports: [JwtModule],
+  controllers: [
+    AuthChallengeController,
+    AuthVerifyController,
+    AuthLogoutController,
+    AuthRefreshController,
+  ],
+  providers: [AuthTokenService],
+  exports: [JwtModule, AuthTokenService],
 })
 export class AuthModule {}
