@@ -16,10 +16,10 @@ export class IsStellarPublicKeyConstraint implements ValidatorConstraintInterfac
 export function IsStellarPublicKey(validationOptions?: ValidationOptions): any {
   return function (object: Object, propertyName: string | symbol) {
     registerDecorator({
+      name: 'isStellarPublicKey',
       target: object.constructor,
       propertyName: propertyName as string,
       options: validationOptions,
-      constraints: [],
       validator: IsStellarPublicKeyConstraint,
     });
   };
